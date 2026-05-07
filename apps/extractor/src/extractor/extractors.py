@@ -16,6 +16,7 @@ Haiku is fast and cheap enough that this is preferable to data loss.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -64,7 +65,9 @@ class _Form1040PII(BaseModel):
     spouse_name: str | None = None
     spouse_ssn: str | None = None
     address: Address | None = None
-    dependents: list[dict[str, Any]] = Field(default_factory=list)
+    # `dependents` deliberately omitted from this shard: list[dict[str, Any]]
+    # produces an empty value-schema that Anthropic rejects, and the
+    # aggregator doesn't consume it. The canonical Form1040Fields keeps it.
 
 
 class _Form1040Income(BaseModel):
@@ -86,15 +89,19 @@ class _Form1040TaxRefund(BaseModel):
     line_37_amount_owed: float | None = None
 
 
-# Paystub — split into header / earnings / deductions
+# Paystub — split into header / deductions.
+# The earnings / other_benefits / direct_deposit lists from the canonical
+# PaystubFields are intentionally not in any shard: they're list[dict[str, Any]]
+# which Anthropic rejects (empty value schema), and the aggregator doesn't
+# consume them. They remain on the canonical model with empty defaults.
 class _PaystubHeader(BaseModel):
     employer_name: str
     employer_address: Address | None = None
     employee_name: str
     employee_address: Address | None = None
-    period_begin_date: Any
-    period_end_date: Any
-    pay_date: Any
+    period_begin_date: date
+    period_end_date: date
+    pay_date: date
     basis_of_pay: str | None = None
     gross_pay_current: float
     gross_pay_ytd: float
@@ -108,13 +115,6 @@ class _PaystubDeductions(BaseModel):
     state_tax_ytd: float | None = None
     social_security_current: float | None = None
     medicare_current: float | None = None
-    deductions_other: list[dict[str, Any]] = Field(default_factory=list)
-
-
-class _PaystubExtras(BaseModel):
-    earnings: list[dict[str, Any]] = Field(default_factory=list)
-    other_benefits: list[dict[str, Any]] = Field(default_factory=list)
-    direct_deposit: list[dict[str, Any]] = Field(default_factory=list)
 
 
 # Form 1008 — split into borrower/property / loan terms / underwriting
@@ -156,8 +156,8 @@ class _BankStatementHeader(BaseModel):
     holder_address: Address | None = None
     account_number: str
     product_name: str | None = None
-    statement_period_start: Any
-    statement_period_end: Any
+    statement_period_start: date
+    statement_period_end: date
 
 
 class _BankStatementBalances(BaseModel):
@@ -292,16 +292,7 @@ REGISTRY: dict[DocumentType, _Extractor] = {
                 schema=_PaystubDeductions,
                 instructions=(
                     "Extract the paystub's statutory deductions (federal "
-                    "income tax, state, SS, medicare) split current vs YTD, "
-                    "plus other deductions (retirement, premiums) as a list."
-                ),
-            ),
-            _Shard(
-                schema=_PaystubExtras,
-                instructions=(
-                    "Extract the paystub's earnings rows (regular, overtime, "
-                    "commission, bonus), other benefits (HSA, etc), and "
-                    "direct deposit destinations."
+                    "income tax, state, SS, medicare) split current vs YTD."
                 ),
             ),
         ],
