@@ -29,8 +29,8 @@ Convention:
 
 ## Phase 1 — Python extractor
 
-- [ ] `apps/extractor` bootstrap with uv: `pyproject.toml`, src layout, ruff + mypy + pytest configured.
-- [ ] `schema.py` — Pydantic models: `Borrower`, `IncomeRecord`, `Account`, `Loan`, `Document`, `Provenance`, `ExtractionFlag`. Export JSON Schema.
+- [x] `apps/extractor` bootstrap with uv: `pyproject.toml`, src layout, ruff + mypy + pytest configured. → uv 0.11.11 installed via brew; project requires Py ≥ 3.12 to use PEP 695 generics for `Sourced[T]` / `MultiSourced[T]`.
+- [x] `schema.py` — Pydantic models: `Borrower`, `IncomeRecord`, `Account`, `Loan`, `Document`, `Provenance`, `ExtractionFlag`. Export JSON Schema. → 10/10 schema smoke tests pass; per-doc-type `*Fields` discriminated union covers all 12 known types.
 - [ ] `llm/base.py` — `LLMProvider` Protocol with `extract_structured(pdf_path, schema, prompt) -> dict` and `complete(prompt) -> str`.
 - [ ] `llm/claude.py` — Anthropic SDK, sends PDFs natively, uses prompt caching, returns structured JSON.
 - [ ] `llm/openai.py` — stub showing the same interface fits.
