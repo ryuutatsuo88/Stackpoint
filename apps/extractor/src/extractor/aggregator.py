@@ -435,8 +435,8 @@ def _build_loan(
         cd_prov = Provenance(document_id=cd_doc.id, page=1, confidence=cd_doc.classifier_confidence)
         if cd.loan_id:
             loan_id_candidates.append(Sourced[str](value=cd.loan_id, provenance=cd_prov))
-        if cd.purpose:
-            purpose = Sourced[str](value=cd.purpose, provenance=cd_prov)
+        if cd.loan_purpose:
+            purpose = Sourced[str](value=cd.loan_purpose, provenance=cd_prov)
         if cd.loan_type:
             loan_type = Sourced[str](value=cd.loan_type, provenance=cd_prov)
         if cd.product:
