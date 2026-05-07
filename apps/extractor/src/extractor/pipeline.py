@@ -97,16 +97,18 @@ def run_borrower(
             extractions.append((doc, None, []))
             continue
 
-        # When with_novelty=True the parsed value is ExtractionWithNovelty[T]
-        # (response.parsed.fields + response.parsed.novel_fields). When
-        # False it's the bare schema instance — simpler JSON Schema, more
-        # robust against the API's "schema too complex" limit.
-        if with_novelty:
-            wrapped = response.parsed
-            extractions.append((doc, wrapped.fields, list(wrapped.novel_fields)))
-            novel_count = len(wrapped.novel_fields)
+        # The parsed value may be:
+        #   - ExtractionWithNovelty[T] — single-shard with_novelty=True path
+        #   - the bare *Fields schema — single-shard with_novelty=False path
+        #     OR multi-shard path (the shard merger always returns the bare
+        #     final_schema; the novelty wrapper would compound the
+        #     union-count problem and is intentionally skipped there)
+        parsed = response.parsed
+        if hasattr(parsed, "fields") and hasattr(parsed, "novel_fields"):
+            extractions.append((doc, parsed.fields, list(parsed.novel_fields)))
+            novel_count = len(parsed.novel_fields)
         else:
-            extractions.append((doc, response.parsed, []))
+            extractions.append((doc, parsed, []))
             novel_count = 0
         print(
             f"PROGRESS: [{idx}/{total}] {pdf.name} ✓ extracted in "

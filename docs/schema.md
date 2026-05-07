@@ -41,6 +41,10 @@ Every field carries `Provenance = {document_id, page, confidence, raw_text_excer
 
 A document not matching any of these by classifier confidence threshold (>= 0.7) is tagged `unknown` and routed to the novelty pipeline.
 
+## API constraint: structured-output schema complexity
+
+The Anthropic structured-output API caps schemas at ~16 nullable / union-typed parameters per request. Several of the canonical `*Fields` models below exceed this — Form 1040, Form 1008, Paystub, Bank Statement. We work around it by splitting those into 2–3 sub-schemas (shards) defined in `apps/extractor/src/extractor/extractors.py` and merging the partial results into the canonical model. The canonical schema below stays untouched. See [`docs/design.md`](./design.md#multi-pass-extraction-working-around-the-structured-output-schema-limit) for the design discussion.
+
 ## Per-doc-type field inventory
 
 Below is the inventory for each doc type, derived from a full read of every PDF in `documents/Loan Documents/Loan 214/`. Field names are snake_case Pydantic candidates.

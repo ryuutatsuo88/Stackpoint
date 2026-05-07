@@ -276,13 +276,17 @@ def fake_provider_loan_214() -> FakeProvider:
         },
     }
 
+    # Novelty is opt-in per pipeline call and only fires for single-shard
+    # doc types (multi-shard schemas can't wrap in ExtractionWithNovelty
+    # without busting the same union-count limit they were split to avoid).
+    # W-2 stays single-shard, so anchor the test on that.
     novelty: dict[tuple[str, str], list[dict[str, Any]]] = {
-        ("Paystub- John Homeowner (Current).pdf", "PaystubFields"): [
+        ("W2 2024- John Homeowner.pdf", "W2Fields"): [
             {
-                "field_name": "advice_number",
-                "sample_value": "00000123",
+                "field_name": "control_number",
+                "sample_value": "0000111122 ABC ABC02 Z 123456",
                 "suggested_type": "str",
-                "notes": "appears in the paystub header, not in schema",
+                "notes": "W-2 box d (control number) — not currently in schema",
             },
         ],
     }

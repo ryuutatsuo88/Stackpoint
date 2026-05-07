@@ -50,7 +50,6 @@ class FakeProvider:
         system: str | None = None,
         max_tokens: int = 16_000,
     ) -> LLMResponse[T]:
-        key = (pdf_path.name, schema.__name__)
         self.calls.append(
             {
                 "method": "extract_structured",
@@ -60,16 +59,35 @@ class FakeProvider:
                 "system": system,
             }
         )
-        if key not in self._structured:
-            raise KeyError(
-                f"FakeProvider has no fixture for {key}. "
-                f"Available: {sorted(self._structured.keys())}"
-            )
-        parsed = schema.model_validate(self._structured[key])
+        data = self._lookup(pdf_path.name, schema)
+        parsed = schema.model_validate(data)
         return LLMResponse[schema](  # type: ignore[valid-type]
             parsed=parsed,
             usage=LLMUsage(input_tokens=100, output_tokens=50),
-            raw=self._structured[key],
+            raw=data,
+        )
+
+    def _lookup(self, filename: str, schema: type[BaseModel]) -> dict[str, Any]:
+        """Find a fixture for `(filename, schema)`. Falls back to any
+        fixture under `filename` whose data validates against `schema` —
+        which lets one canonical fixture per file feed multiple shard
+        sub-schemas via Pydantic's extras-ignored default.
+        """
+        key = (filename, schema.__name__)
+        if key in self._structured:
+            return self._structured[key]
+        # Fallback — find any fixture under this filename that validates.
+        for (fname, _), data in self._structured.items():
+            if fname != filename:
+                continue
+            try:
+                schema.model_validate(data)
+            except Exception:
+                continue
+            return data
+        raise KeyError(
+            f"FakeProvider has no fixture for {key}. "
+            f"Available: {sorted(self._structured.keys())}"
         )
 
     def extract_with_novelty[T: BaseModel](

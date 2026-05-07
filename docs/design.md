@@ -95,6 +95,46 @@ This corpus naturally surfaces several real conflicts that demonstrate the patte
 
 Adding a new consistency check is a single function in [`consistency.py`](../apps/extractor/src/extractor/consistency.py) that yields zero or more `ExtractionFlag`s. Type-driven, no plumbing.
 
+## Multi-pass extraction (working around the structured-output schema limit)
+
+The Anthropic structured-output API has a hard ceiling on schema complexity:
+
+> *"Schemas contains too many parameters with union types … This causes exponential compilation cost. Reduce the number of nullable or union-typed parameters (limit: 16 parameters with unions)."*
+
+Several of our `*Fields` models naturally exceed this — the 1040 has ~18 nullable fields, the Form 1008 has ~20, and bank statements pack a nested transactions list on top of a flat field set. The first real-LLM run failed on every dense doc with that error and a related *"Schema is too complex"* / *"Grammar compilation timed out"* set.
+
+**The fix is multi-pass extraction.** Rather than trim the schemas (which would lose data), each dense doc is split into 2–3 logical sections, each with its own sub-schema well under the limit. The pipeline runs each shard sequentially against the same PDF, dumps the partials to dicts, merges them, and Pydantic-validates the merged dict against the canonical `*Fields` model.
+
+```
+                       ┌────────────────┐  → _Form1040PII (8 fields)
+   Form 1040 PDF  ───→ │  3 LLM calls   │  → _Form1040Income (6 fields)
+                       └────────────────┘  → _Form1040TaxRefund (7 fields)
+                              │
+                              ▼
+                     dict.update() three times
+                              │
+                              ▼
+                     Form1040Fields.model_validate(merged)  ← canonical
+```
+
+Per-doc shard boundaries:
+
+| Doc type | Shards | Why split this way |
+|---|---|---|
+| Form 1040 | PII / Income lines / Tax & refund | Three natural sections of the form, each ~6–8 fields |
+| Form 1008 | Borrower & property / Loan terms / Underwriting | Mirrors the form's Section I / II / III |
+| Paystub | Header (employer, employee, period, totals) / Statutory deductions / Earnings + benefits + direct deposit | Header is required; deductions and extras have lots of nullable detail |
+| Bank statement (checking & savings) | Header / Balances / Transactions | Transactions are an unbounded list — isolating them shields the rest |
+
+Doc types whose full schema fits the limit (W-2, EVOE, Schedule C, Closing Disclosure, Title Report, Letter of Explanation) stay single-pass.
+
+**Trade-offs of this design:**
+
+- **Cost / latency**: 2–3× LLM calls per dense doc. Acceptable on Haiku 4.5 (3–10s per call, sub-cent each). On Opus this would be more painful and you'd want PDF caching.
+- **Accuracy**: arguably *better* than single-pass — each prompt is focused on the section it cares about. The model isn't asked to track 18 fields at once.
+- **Novel-field detection**: not available on multi-shard doc types. The `ExtractionWithNovelty[T]` wrapper would compound the union-count problem it was meant to avoid. Single-shard doc types still emit novelty hints; the design doc and tests cover the capability either way.
+- **Schema as source of truth**: unchanged. The shard sub-schemas live in `extractors.py` and exist *only* to fit the API constraint — the canonical `*Fields` models in `schema.py` remain the contract. Adding a new field means adding it to the canonical model and (if needed) the relevant shard.
+
 ## Novel-field detection
 
 The schema is closed at the per-doc-type level — each extractor returns a fixed Pydantic shape — but real documents contain fields that don't yet have a home. Examples from this corpus: `advice_number` on a paystub, `caivrs_number` on the Form 1008 addendum, page-level signature presence flags on the Title Report.
