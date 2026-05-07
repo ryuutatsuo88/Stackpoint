@@ -60,6 +60,7 @@ def run_borrower(
     provider: LLMProvider,
     *,
     output_dir: Path,
+    with_novelty: bool = False,
 ) -> tuple[Borrower, Path]:
     """Run the full pipeline for a single borrower folder."""
     borrower_id = borrower_id_from_folder(folder)
@@ -69,24 +70,49 @@ def run_borrower(
 
     started = time.monotonic()
     extractions: list[tuple[Document, Any, list[Any]]] = []
+    total = len(pdfs)
 
-    for pdf in pdfs:
+    for idx, pdf in enumerate(pdfs, start=1):
+        t0 = time.monotonic()
+        print(f"PROGRESS: [{idx}/{total}] classifying {pdf.name}", flush=True)
         cls = classify_mod.classify(pdf, provider)
         doc = build_document(pdf, cls.doc_type, cls.confidence)
+        print(
+            f"PROGRESS: [{idx}/{total}] {pdf.name} → {cls.doc_type.value} "
+            f"({cls.confidence:.0%} via {cls.method})",
+            flush=True,
+        )
 
         if cls.doc_type is DocumentType.UNKNOWN or cls.doc_type not in extractors.REGISTRY:
+            print(f"PROGRESS: [{idx}/{total}] {pdf.name} → skipped (no extractor)", flush=True)
             extractions.append((doc, None, []))
             continue
 
         try:
-            response = extractors.extract(cls.doc_type, pdf, provider, with_novelty=True)
+            response = extractors.extract(
+                cls.doc_type, pdf, provider, with_novelty=with_novelty
+            )
         except Exception as exc:  # noqa: BLE001 — surface but don't fail the corpus
-            print(f"[warn] extraction failed for {pdf.name}: {exc}")
+            print(f"PROGRESS: [{idx}/{total}] ERROR {pdf.name}: {exc}", flush=True)
             extractions.append((doc, None, []))
             continue
 
-        wrapped = response.parsed
-        extractions.append((doc, wrapped.fields, list(wrapped.novel_fields)))
+        # When with_novelty=True the parsed value is ExtractionWithNovelty[T]
+        # (response.parsed.fields + response.parsed.novel_fields). When
+        # False it's the bare schema instance — simpler JSON Schema, more
+        # robust against the API's "schema too complex" limit.
+        if with_novelty:
+            wrapped = response.parsed
+            extractions.append((doc, wrapped.fields, list(wrapped.novel_fields)))
+            novel_count = len(wrapped.novel_fields)
+        else:
+            extractions.append((doc, response.parsed, []))
+            novel_count = 0
+        print(
+            f"PROGRESS: [{idx}/{total}] {pdf.name} ✓ extracted in "
+            f"{time.monotonic() - t0:.1f}s",
+            flush=True,
+        )
 
     duration = time.monotonic() - started
 

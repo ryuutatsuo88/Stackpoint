@@ -101,8 +101,14 @@ def test_emits_novel_field_flag(
     loan_214_corpus: Path,
     tmp_path: Path,
 ) -> None:
+    """Novelty mode is opt-in (with_novelty=True). The default is off
+    because the wrapper schema can hit the API's schema-complexity limit
+    on dense docs like the 1040.
+    """
     folder = loan_214_corpus / "Loan Documents" / "Loan 214"
-    borrower, _ = run_borrower(folder, fake_provider_loan_214, output_dir=tmp_path)
+    borrower, _ = run_borrower(
+        folder, fake_provider_loan_214, output_dir=tmp_path, with_novelty=True
+    )
 
     novel = [f for f in borrower.flags if f.kind is FlagKind.NOVEL_FIELD]
     assert any(f.details.get("field_name") == "advice_number" for f in novel)
