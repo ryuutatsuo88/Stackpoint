@@ -8,11 +8,24 @@ Convention:
 - `[x]` = done — append `→ note` for what was actually done.
 - `[!]` = blocked — append `→ blocker` describing what's needed to unblock.
 
+## Loop conventions (every iteration)
+
+1. **Commit per task.** Every task that produces a logically complete change must end with `git commit` followed by `git push origin main`. No batched commits across tasks.
+2. **No Claude co-author tag.** Commit messages must NOT include any `Co-Authored-By: Claude` trailer or any other AI-attribution trailer. The author should be the user; commits are written as if the user wrote them.
+3. **Use a heredoc for the message** so multi-line bodies render correctly. Conventional-commits style preferred (e.g. `feat: …`, `chore: …`, `test: …`, `docs: …`).
+4. **Pre-commit safety.** Before staging, run `git status` to confirm `.env` is not in the change list. If it ever appears, stop and alert the user.
+5. **Push after every commit.** Failures to push (e.g. behind remote) should pause the loop and report the conflict, not force-push.
+
 ## Phase 0 — Foundations
 
-- [x] Scaffold repo: `apps/`, `docs/`, rename `assignment_documents/` → `documents/`, .gitignore, .env.example, root README skeleton → done in initial commit; `.env` gitignored.
-- [~] Walk corpus and produce `docs/schema.md` — per-doc-type field map driving the Pydantic model.
-- [~] `docs/requirements.md` written; `docs/tasks.md` (this file) initialized.
+- [x] Scaffold repo: `apps/`, `docs/`, rename `assignment_documents/` → `documents/`, .gitignore, .env.example, root README skeleton → done; `.env` gitignored.
+- [x] `docs/requirements.md` written; `docs/tasks.md` (this file) initialized.
+- [x] Walk corpus and produce `docs/schema.md` — per-doc-type field map driving the Pydantic model. Surfaced an unplanned doc type (Form 1008 in `document.pdf`) and several cross-doc inconsistencies (3 property addresses, Mary SSN mismatch, loan-ID drift, title report for unrelated transaction). All captured in schema.md and reflected as cross-doc consistency rules.
+
+## Phase 0.5 — Design absorbs the new findings
+
+- [ ] Update `docs/design.md` (Phase 3 task) to call out cross-doc consistency as a first-class system feature, not just novel-field detection.
+- [ ] Confirm with user: `document.pdf` → treat as a known type (`underwriting_transmittal_1008`) we extract, OR leave as `unknown` to demo the novelty pipeline end-to-end? **Recommendation: treat as known. Cross-doc inconsistency demo is already strong enough; we want extraction to actually populate the loan record.**
 
 ## Phase 1 — Python extractor
 
