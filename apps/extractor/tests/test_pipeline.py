@@ -111,7 +111,7 @@ def test_emits_novel_field_flag(
     )
 
     novel = [f for f in borrower.flags if f.kind is FlagKind.NOVEL_FIELD]
-    assert any(f.details.get("field_name") == "control_number" for f in novel)
+    assert any(f.details.get("field_name") == "disclaimer_footer" for f in novel)
 
 
 def test_income_records_have_provenance(

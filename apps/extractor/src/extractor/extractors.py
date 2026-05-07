@@ -34,6 +34,7 @@ from extractor.schema import (
     Form1008Fields,
     Form1040Fields,
     LetterOfExplanationFields,
+    LoanTerm,
     PaystubFields,
     ScheduleCFields,
     TitleReportFields,
@@ -117,6 +118,123 @@ class _PaystubDeductions(BaseModel):
     medicare_current: float | None = None
 
 
+# W-2 — split defensively (identity / wage boxes)
+class _W2Identity(BaseModel):
+    tax_year: int
+    employer_name: str
+    employer_address: Address | None = None
+    employer_ein: str | None = None
+    employee_name: str
+    employee_ssn: str | None = None
+    employee_address: Address | None = None
+
+
+class _W2WageBoxes(BaseModel):
+    box_1_wages: float
+    box_2_federal_withheld: float | None = None
+    box_3_ss_wages: float | None = None
+    box_4_ss_withheld: float | None = None
+    box_5_medicare_wages: float | None = None
+    box_6_medicare_withheld: float | None = None
+    state_wages: float | None = None
+    state_income_tax: float | None = None
+
+
+# EVOE — split into identity / employment / income
+class _EvoeIdentity(BaseModel):
+    subject_name: str
+    subject_ssn_masked: str | None = None
+    current_as_of_date: date | None = None
+
+
+class _EvoeEmployment(BaseModel):
+    employer_name: str
+    employer_address: Address | None = None
+    employment_status: str | None = None
+    job_title: str | None = None
+    most_recent_start_date: date | None = None
+    original_hire_date: date | None = None
+    end_date: date | None = None
+
+
+class _EvoeIncomeShard(BaseModel):
+    rate_of_pay: float | None = None
+    pay_frequency: str | None = None
+    pay_period_frequency: str | None = None
+    annual_income: list[EvoeAnnualIncome] = Field(default_factory=list)
+
+
+# Schedule C — split into identity / financials
+class _ScheduleCIdentity(BaseModel):
+    tax_year: int
+    proprietor_name: str
+    proprietor_ssn: str | None = None
+    business_name: str | None = None
+    ein: str | None = None
+    naics_code: str | None = None
+    business_address: Address | None = None
+    accounting_method: str | None = None
+
+
+class _ScheduleCFinancials(BaseModel):
+    line_1_gross_receipts: float | None = None
+    line_7_gross_income: float | None = None
+    line_28_total_expenses: float | None = None
+    line_29_tentative_profit: float | None = None
+    line_30_business_use_of_home: float | None = None
+    line_31_net_profit: float
+
+
+# Closing Disclosure — split into closing/parties / loan info
+class _CDClosingParties(BaseModel):
+    date_issued: date | None = None
+    closing_date: date | None = None
+    disbursement_date: date | None = None
+    settlement_agent: str | None = None
+    file_number: str | None = None
+    property_address: Address | None = None
+    sale_price: float | None = None
+    borrower_names: list[str] = Field(default_factory=list)
+    seller_name: str | None = None
+    lender_name: str | None = None
+
+
+class _CDLoanInfo(BaseModel):
+    loan_id: str | None = None
+    loan_term: str | None = None
+    loan_purpose: str | None = None
+    loan_type: str | None = None
+    product: str | None = None
+    estimated_closing_costs: float | None = None
+    estimated_cash_to_close: float | None = None
+
+
+class _CDLoanTerms(BaseModel):
+    """LoanTerm itself has nullable fields; isolate it in its own shard."""
+
+    loan_terms: list[LoanTerm] = Field(default_factory=list)
+
+
+# Title Report — split into identification / property+policies
+class _TitleRptIdent(BaseModel):
+    issuing_agent: str | None = None
+    commitment_number: str | None = None
+    file_number: str | None = None
+    loan_id_number: str | None = None
+
+
+class _TitleRptProperty(BaseModel):
+    property_address: Address | None = None
+    legal_description: str | None = None
+    county: str | None = None
+    state: str | None = None
+    parcel_id: str | None = None
+    proposed_insureds: list[str] = Field(default_factory=list)
+    proposed_amount_owner: float | None = None
+    proposed_amount_loan: float | None = None
+    current_vesting: str | None = None
+
+
 # Form 1008 — split into borrower/property / loan terms / underwriting
 class _Form1008BorrowerProperty(BaseModel):
     borrower_name: str
@@ -197,70 +315,125 @@ class _Extractor:
 
 
 REGISTRY: dict[DocumentType, _Extractor] = {
-    # Single-shard (schema fits the limit)
     DocumentType.W2: _Extractor(
         final_schema=W2Fields,
         shards=[
             _Shard(
-                schema=W2Fields,
+                schema=_W2Identity,
                 instructions=(
-                    "Extract the W-2. Use box numbers as the source of truth "
-                    "— form layout is unreliable. Box 12 is a list of "
-                    "(code, amount) pairs."
+                    "Extract the W-2 identity block: tax year, employer "
+                    "(name/address/EIN), employee (name/SSN/address)."
                 ),
-            )
+            ),
+            _Shard(
+                schema=_W2WageBoxes,
+                instructions=(
+                    "Extract the W-2 wage boxes (1, 2, 3, 4, 5, 6, plus state "
+                    "wages and state income tax). Use the box numbers as the "
+                    "source of truth — form layout is unreliable."
+                ),
+            ),
         ],
     ),
     DocumentType.EVOE: _Extractor(
         final_schema=EvoeFields,
         shards=[
             _Shard(
-                schema=EvoeFields,
+                schema=_EvoeIdentity,
                 instructions=(
-                    "Extract the verification of employment. Mark "
-                    "is_year_to_date=true for partial-year rows in "
-                    "annual_income."
+                    "Extract the EVOE subject identity (subject_name, masked "
+                    "SSN, current_as_of_date)."
                 ),
-            )
+            ),
+            _Shard(
+                schema=_EvoeEmployment,
+                instructions=(
+                    "Extract the EVOE employment block: employer, "
+                    "employment_status, job_title, hire/start/end dates."
+                ),
+            ),
+            _Shard(
+                schema=_EvoeIncomeShard,
+                instructions=(
+                    "Extract the EVOE income block: rate_of_pay, "
+                    "pay_frequency, pay_period_frequency, and the annual "
+                    "income table. Mark is_year_to_date=true for partial-"
+                    "year rows."
+                ),
+            ),
         ],
     ),
     DocumentType.SCHEDULE_C: _Extractor(
         final_schema=ScheduleCFields,
         shards=[
             _Shard(
-                schema=ScheduleCFields,
+                schema=_ScheduleCIdentity,
                 instructions=(
-                    "Extract Schedule C. **If multiple tax years are stacked, "
-                    "extract the MOST RECENT only.** Net profit (line 31) is "
-                    "the headline figure."
+                    "Extract Schedule C identity (tax_year, proprietor name "
+                    "and SSN, business name, EIN, NAICS, address, "
+                    "accounting method). **If multiple tax years are "
+                    "stacked, return the MOST RECENT only.**"
                 ),
-            )
+            ),
+            _Shard(
+                schema=_ScheduleCFinancials,
+                instructions=(
+                    "Extract Schedule C financials: line 1, 7, 28, 29, 30, "
+                    "and 31 (net profit — required). **Most recent year only.**"
+                ),
+            ),
         ],
     ),
     DocumentType.CLOSING_DISCLOSURE: _Extractor(
         final_schema=ClosingDisclosureFields,
         shards=[
             _Shard(
-                schema=ClosingDisclosureFields,
+                schema=_CDClosingParties,
                 instructions=(
-                    "Extract the closing disclosure. This corpus may contain "
-                    "partial / non-CFPB-standard CDs — extract whatever is "
-                    "present."
+                    "Extract Closing Disclosure closing details and parties: "
+                    "issue/closing/disbursement dates, settlement agent, "
+                    "file number, property address, sale price, borrowers, "
+                    "seller, lender."
                 ),
-            )
+            ),
+            _Shard(
+                schema=_CDLoanInfo,
+                instructions=(
+                    "Extract Closing Disclosure loan info: loan_id, "
+                    "loan_term, purpose, type, product, estimated closing "
+                    "costs, cash to close."
+                ),
+            ),
+            _Shard(
+                schema=_CDLoanTerms,
+                instructions=(
+                    "Extract the Closing Disclosure's `loan_terms` table — "
+                    "loan amount, interest rate, monthly P&I, prepayment "
+                    "penalty, balloon payment — each as "
+                    "{description, amount, can_increase_after_closing}."
+                ),
+            ),
         ],
     ),
     DocumentType.TITLE_REPORT: _Extractor(
         final_schema=TitleReportFields,
         shards=[
             _Shard(
-                schema=TitleReportFields,
+                schema=_TitleRptIdent,
                 instructions=(
-                    "Extract from the ALTA Title Commitment. Schedule A holds "
-                    "the core fields (insureds, property address, commitment "
-                    "number, policies). Skip boilerplate."
+                    "Extract Title Commitment identification: issuing agent, "
+                    "commitment number, file number, loan id."
                 ),
-            )
+            ),
+            _Shard(
+                schema=_TitleRptProperty,
+                instructions=(
+                    "Extract Title Commitment Schedule A and Exhibit A: "
+                    "property address, legal description, county, state, "
+                    "parcel id, proposed insureds, proposed insurance "
+                    "amounts, current vesting."
+                ),
+            ),
         ],
     ),
     DocumentType.LETTER_OF_EXPLANATION: _Extractor(
@@ -277,7 +450,6 @@ REGISTRY: dict[DocumentType, _Extractor] = {
             )
         ],
     ),
-    # Multi-shard
     DocumentType.PAYSTUB: _Extractor(
         final_schema=PaystubFields,
         shards=[
