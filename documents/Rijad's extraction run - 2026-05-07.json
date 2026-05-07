@@ -1,0 +1,1129 @@
+{
+  "id": "loan-214",
+  "pii": {
+    "legal_name": {
+      "primary": {
+        "value": "John Homeowner",
+        "provenance": {
+          "document_id": "doc-0537f06ea0e2",
+          "page": 1,
+          "confidence": 0.99,
+          "raw_text_excerpt": null
+        }
+      },
+      "alternates": [
+        {
+          "value": "John Homeowner",
+          "provenance": {
+            "document_id": "doc-bd89e0ec8427",
+            "page": 1,
+            "confidence": 0.99,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": "John Homeowner",
+          "provenance": {
+            "document_id": "doc-88c93d177497",
+            "page": 1,
+            "confidence": 0.95,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": "John Homeowner",
+          "provenance": {
+            "document_id": "doc-151c6e3d9ea9",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": "John Homeowner",
+          "provenance": {
+            "document_id": "doc-0cf74e10d02c",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": "John Homeowner",
+          "provenance": {
+            "document_id": "doc-5b2ad98f18a9",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        }
+      ]
+    },
+    "date_of_birth": null,
+    "address": {
+      "primary": {
+        "value": {
+          "line_1": "175 13th Street",
+          "line_2": null,
+          "city": "Washington",
+          "state": "DC",
+          "postal_code": "20013",
+          "country": "US"
+        },
+        "provenance": {
+          "document_id": "doc-5b2ad98f18a9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "alternates": [
+        {
+          "value": {
+            "line_1": "175 13th Street",
+            "line_2": null,
+            "city": "Washington",
+            "state": "DC",
+            "postal_code": "20013",
+            "country": "US"
+          },
+          "provenance": {
+            "document_id": "doc-bd89e0ec8427",
+            "page": 1,
+            "confidence": 0.99,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": {
+            "line_1": "175 13th Street",
+            "line_2": null,
+            "city": "Washington",
+            "state": "DC",
+            "postal_code": "20013",
+            "country": "US"
+          },
+          "provenance": {
+            "document_id": "doc-0537f06ea0e2",
+            "page": 1,
+            "confidence": 0.99,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": {
+            "line_1": "175 13th Street",
+            "line_2": null,
+            "city": "Washington",
+            "state": "DC",
+            "postal_code": "20013",
+            "country": "US"
+          },
+          "provenance": {
+            "document_id": "doc-151c6e3d9ea9",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": {
+            "line_1": "175 13th Street",
+            "line_2": null,
+            "city": "Washington",
+            "state": "DC",
+            "postal_code": "20013",
+            "country": "US"
+          },
+          "provenance": {
+            "document_id": "doc-0cf74e10d02c",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        }
+      ]
+    },
+    "contact": {
+      "phone": "347-324-1888",
+      "email": "john.homeowner@test.com"
+    }
+  },
+  "identifiers": {
+    "ssn": {
+      "primary": {
+        "value": "999-40-5000",
+        "provenance": {
+          "document_id": "doc-0537f06ea0e2",
+          "page": 1,
+          "confidence": 0.99,
+          "raw_text_excerpt": null
+        }
+      },
+      "alternates": [
+        {
+          "value": "999-40-5000",
+          "provenance": {
+            "document_id": "doc-bd89e0ec8427",
+            "page": 1,
+            "confidence": 0.99,
+            "raw_text_excerpt": null
+          }
+        },
+        {
+          "value": "xxx-xx-5000",
+          "provenance": {
+            "document_id": "doc-88c93d177497",
+            "page": 1,
+            "confidence": 0.95,
+            "raw_text_excerpt": null
+          }
+        }
+      ]
+    },
+    "aliases": []
+  },
+  "co_borrowers": [],
+  "employment": [
+    {
+      "employer_name": {
+        "value": "ABC Technologies",
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "employer_address": {
+        "value": {
+          "line_1": "2390 Sunny Drive",
+          "line_2": null,
+          "city": "Louisville",
+          "state": "KY",
+          "postal_code": "40207",
+          "country": "US"
+        },
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "job_title": {
+        "value": "Sales Manager",
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "employment_status": {
+        "value": "Active",
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "most_recent_start_date": {
+        "value": "2015-09-23",
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "original_hire_date": null,
+      "end_date": null,
+      "pay_frequency": {
+        "value": "Annual",
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "rate_of_pay": {
+        "value": 110000.0,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "rate_basis": null
+    }
+  ],
+  "income": [
+    {
+      "kind": "w2_wages",
+      "amount": {
+        "value": 47185.36,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2025 annual (YTD)",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — total"
+    },
+    {
+      "kind": "commission",
+      "amount": {
+        "value": 6683.48,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2025 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — commissions"
+    },
+    {
+      "kind": "w2_wages",
+      "amount": {
+        "value": 121790.0,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2024 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — total"
+    },
+    {
+      "kind": "commission",
+      "amount": {
+        "value": 17290.0,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2024 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — commissions"
+    },
+    {
+      "kind": "w2_wages",
+      "amount": {
+        "value": 112702.0,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2023 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — total"
+    },
+    {
+      "kind": "commission",
+      "amount": {
+        "value": 16562.0,
+        "provenance": {
+          "document_id": "doc-88c93d177497",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2023 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "EVOE annual income summary — commissions"
+    },
+    {
+      "kind": "w2_wages",
+      "amount": {
+        "value": 4900.0,
+        "provenance": {
+          "document_id": "doc-5b2ad98f18a9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": "2025-04-12",
+      "period_end": "2025-04-25",
+      "period_label": "Pay period 2025-04-12 to 2025-04-25",
+      "employer_name": "ABC Technologies",
+      "notes": "paystub current period gross"
+    },
+    {
+      "kind": "interest",
+      "amount": {
+        "value": 11.41,
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": "2025-04-01",
+      "period_end": "2025-04-30",
+      "period_label": "2025-04-01 to 2025-04-30",
+      "employer_name": "Sandy Springs Credit Union",
+      "notes": "bank statement interest paid"
+    },
+    {
+      "kind": "w2_box1",
+      "amount": {
+        "value": 117040.19,
+        "provenance": {
+          "document_id": "doc-bd89e0ec8427",
+          "page": 1,
+          "confidence": 0.99,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2024 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "W-2 box 1 (taxable wages, after pre-tax deductions)"
+    },
+    {
+      "kind": "social_security_wages",
+      "amount": {
+        "value": 121790.22,
+        "provenance": {
+          "document_id": "doc-bd89e0ec8427",
+          "page": 1,
+          "confidence": 0.99,
+          "raw_text_excerpt": null
+        }
+      },
+      "period_start": null,
+      "period_end": null,
+      "period_label": "2024 annual",
+      "employer_name": "ABC Technologies",
+      "notes": "W-2 box 3 (Social Security wages, pre-deduction)"
+    }
+  ],
+  "accounts": [
+    {
+      "institution_name": {
+        "value": "Sandy Springs Credit Union",
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "kind": "checking",
+      "account_number": {
+        "value": "123456789",
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "holders": [
+        "John Homeowner",
+        "Mary Homeowner"
+      ],
+      "statement_period_start": "2025-04-01",
+      "statement_period_end": "2025-04-30",
+      "beginning_balance": {
+        "value": 8355.0,
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "ending_balance": {
+        "value": 25000.0,
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "interest_rate": {
+        "value": 0.0,
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "apy": {
+        "value": 0.0,
+        "provenance": {
+          "document_id": "doc-151c6e3d9ea9",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      }
+    },
+    {
+      "institution_name": {
+        "value": "Sandy Springs Credit Union",
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "kind": "savings",
+      "account_number": {
+        "value": "987654321",
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "holders": [
+        "John Homeowner",
+        "Mary Homeowner"
+      ],
+      "statement_period_start": "2025-04-01",
+      "statement_period_end": "2025-04-30",
+      "beginning_balance": {
+        "value": 18238.59,
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "ending_balance": {
+        "value": 20000.0,
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "interest_rate": {
+        "value": 0.75,
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "apy": {
+        "value": 0.753,
+        "provenance": {
+          "document_id": "doc-0cf74e10d02c",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      }
+    }
+  ],
+  "loan": {
+    "loan_id": {
+      "primary": {
+        "value": "TEST250700110",
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "alternates": [
+        {
+          "value": "TEST250700114",
+          "provenance": {
+            "document_id": "doc-90a58db23b52",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        }
+      ]
+    },
+    "purpose": {
+      "value": "Purchase",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "loan_type": {
+      "value": "Conventional",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "amortization_type": {
+      "value": "Fixed Rate",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "loan_amount": {
+      "primary": {
+        "value": 280000.0,
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "alternates": [
+        {
+          "value": 280000.0,
+          "provenance": {
+            "document_id": "doc-90a58db23b52",
+            "page": 1,
+            "confidence": 0.98,
+            "raw_text_excerpt": null
+          }
+        }
+      ]
+    },
+    "note_rate": null,
+    "loan_term_months": null,
+    "lender_name": {
+      "value": "XYZ Mortgage Company",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "settlement_agent": {
+      "value": "ABC Title Company",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "closing_date": {
+      "value": "2025-07-25",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "disbursement_date": {
+      "value": "2025-07-29",
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "sale_price": {
+      "value": 350000.0,
+      "provenance": {
+        "document_id": "doc-c1ff2dbaee8f",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "appraised_value": {
+      "value": 280000.0,
+      "provenance": {
+        "document_id": "doc-90a58db23b52",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "ltv": {
+      "value": 80.0,
+      "provenance": {
+        "document_id": "doc-90a58db23b52",
+        "page": 1,
+        "confidence": 0.98,
+        "raw_text_excerpt": null
+      }
+    },
+    "loan_terms": [
+      {
+        "value": {
+          "description": "Loan Amount",
+          "amount": 280000.0,
+          "can_increase_after_closing": false
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      {
+        "value": {
+          "description": "Interest Rate",
+          "amount": 4.0,
+          "can_increase_after_closing": false
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      {
+        "value": {
+          "description": "Monthly Principal & Interest",
+          "amount": 1336.76,
+          "can_increase_after_closing": false
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      {
+        "value": {
+          "description": "Prepayment Penalty",
+          "amount": null,
+          "can_increase_after_closing": null
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      {
+        "value": {
+          "description": "Balloon Payment",
+          "amount": null,
+          "can_increase_after_closing": null
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      }
+    ],
+    "co_borrowers": [
+      "Mary Homeowner"
+    ]
+  },
+  "properties": [
+    {
+      "role": "subject",
+      "address": {
+        "value": {
+          "line_1": "999 Test Place",
+          "line_2": null,
+          "city": "Washington",
+          "state": "DC",
+          "postal_code": "20013",
+          "country": "US"
+        },
+        "provenance": {
+          "document_id": "doc-c1ff2dbaee8f",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "legal_description": null,
+      "parcel_id": null,
+      "occupancy_status": null
+    },
+    {
+      "role": "subject",
+      "address": {
+        "value": {
+          "line_1": "9591 North Old Mill Way",
+          "line_2": null,
+          "city": "Citrus Springs",
+          "state": "FL",
+          "postal_code": "34433",
+          "country": "US"
+        },
+        "provenance": {
+          "document_id": "doc-f5575e513ea6",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "legal_description": {
+        "value": "Lot 4, Block 308, Citrus Springs Unit 3, according to the map or plat thereof, as recorded in Plat Book 5, Page(s) 116 through 129, inclusive, of the Public Records of Citrus County, Florida.",
+        "provenance": {
+          "document_id": "doc-f5575e513ea6",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "parcel_id": {
+        "value": "18E17S10003 03080 0040",
+        "provenance": {
+          "document_id": "doc-f5575e513ea6",
+          "page": 1,
+          "confidence": 0.95,
+          "raw_text_excerpt": null
+        }
+      },
+      "occupancy_status": null
+    },
+    {
+      "role": "subject",
+      "address": {
+        "value": {
+          "line_1": "214 Overlook Drive",
+          "line_2": null,
+          "city": "Brentwood",
+          "state": "TN",
+          "postal_code": "37027",
+          "country": "US"
+        },
+        "provenance": {
+          "document_id": "doc-90a58db23b52",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      },
+      "legal_description": null,
+      "parcel_id": null,
+      "occupancy_status": {
+        "value": "Primary Residence",
+        "provenance": {
+          "document_id": "doc-90a58db23b52",
+          "page": 1,
+          "confidence": 0.98,
+          "raw_text_excerpt": null
+        }
+      }
+    }
+  ],
+  "source_documents": [
+    {
+      "id": "doc-0537f06ea0e2",
+      "path": "../../documents/Loan Documents/Loan 214/1040 and Schedule C (2023 and 2024) - John and Mary Homeowner .pdf",
+      "filename": "1040 and Schedule C (2023 and 2024) - John and Mary Homeowner .pdf",
+      "page_count": 1,
+      "sha256": "0537f06ea0e28ed2ec073b5ccb2c78e1ca80ec2b98254189b12f414ff7684257",
+      "doc_type": "form_1040",
+      "classifier_confidence": 0.99,
+      "extracted_at": "2026-05-07T05:10:19.626255",
+      "bytes": 621187
+    },
+    {
+      "id": "doc-151c6e3d9ea9",
+      "path": "../../documents/Loan Documents/Loan 214/Checking - John Mary Homeowner (Current).pdf",
+      "filename": "Checking - John Mary Homeowner (Current).pdf",
+      "page_count": 1,
+      "sha256": "151c6e3d9ea91cab703b1ca44daa586e7d5a5c4e092d49da6cb41afbb14ba40c",
+      "doc_type": "bank_statement_checking",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:10:36.040493",
+      "bytes": 132752
+    },
+    {
+      "id": "doc-c1ff2dbaee8f",
+      "path": "../../documents/Loan Documents/Loan 214/Closing_Disclosure.pdf",
+      "filename": "Closing_Disclosure.pdf",
+      "page_count": 1,
+      "sha256": "c1ff2dbaee8f1aba59a045cdbc3da91f9ab7394e70ebc9e319fba7e2428df517",
+      "doc_type": "closing_disclosure",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:10:49.374658",
+      "bytes": 222684
+    },
+    {
+      "id": "doc-88c93d177497",
+      "path": "../../documents/Loan Documents/Loan 214/EVOE - John Homeowner.pdf",
+      "filename": "EVOE - John Homeowner.pdf",
+      "page_count": 1,
+      "sha256": "88c93d17749711966a23d8f8d3131f2d4231f5509e5dd359e11033ef89678317",
+      "doc_type": "evoe",
+      "classifier_confidence": 0.95,
+      "extracted_at": "2026-05-07T05:12:38.813790",
+      "bytes": 49941
+    },
+    {
+      "id": "doc-61de33d13a32",
+      "path": "../../documents/Loan Documents/Loan 214/Letter_of_Explanation.pdf",
+      "filename": "Letter_of_Explanation.pdf",
+      "page_count": 1,
+      "sha256": "61de33d13a3280c65bf2c73bd0904be9c762e3dfdf71b1c72dd3a6f0ef2e160c",
+      "doc_type": "letter_of_explanation",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:13:11.681266",
+      "bytes": 199043
+    },
+    {
+      "id": "doc-5b2ad98f18a9",
+      "path": "../../documents/Loan Documents/Loan 214/Paystub- John Homeowner (Current).pdf",
+      "filename": "Paystub- John Homeowner (Current).pdf",
+      "page_count": 1,
+      "sha256": "5b2ad98f18a947a07f3a3472551745c33d6fb60ac357028e36347a0f6519c58d",
+      "doc_type": "paystub",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:13:41.404047",
+      "bytes": 142733
+    },
+    {
+      "id": "doc-0cf74e10d02c",
+      "path": "../../documents/Loan Documents/Loan 214/Savings - John Mary Homeowner (Current).pdf",
+      "filename": "Savings - John Mary Homeowner (Current).pdf",
+      "page_count": 1,
+      "sha256": "0cf74e10d02cc8b0258a8018cf8c03d0544a608abcb70374e2c46998dd825784",
+      "doc_type": "bank_statement_savings",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:14:06.271645",
+      "bytes": 186043
+    },
+    {
+      "id": "doc-f5575e513ea6",
+      "path": "../../documents/Loan Documents/Loan 214/Title Report.pdf",
+      "filename": "Title Report.pdf",
+      "page_count": 1,
+      "sha256": "f5575e513ea6835f763421ab79ef8af2c38c048d301c23e2212b5c91a4814194",
+      "doc_type": "title_report",
+      "classifier_confidence": 0.95,
+      "extracted_at": "2026-05-07T05:14:23.557991",
+      "bytes": 3544694
+    },
+    {
+      "id": "doc-bd89e0ec8427",
+      "path": "../../documents/Loan Documents/Loan 214/W2 2024- John Homeowner.pdf",
+      "filename": "W2 2024- John Homeowner.pdf",
+      "page_count": 1,
+      "sha256": "bd89e0ec8427983743b99802e39df0b9ca4fa196d2edb319bdd9bd0905718df1",
+      "doc_type": "w2",
+      "classifier_confidence": 0.99,
+      "extracted_at": "2026-05-07T05:16:36.947944",
+      "bytes": 180654
+    },
+    {
+      "id": "doc-90a58db23b52",
+      "path": "../../documents/Loan Documents/Loan 214/document.pdf",
+      "filename": "document.pdf",
+      "page_count": 1,
+      "sha256": "90a58db23b52480395807cbe3ad2172aa7126025c1a2322a6a49dccf50bcc3e5",
+      "doc_type": "underwriting_transmittal_1008",
+      "classifier_confidence": 0.98,
+      "extracted_at": "2026-05-07T05:17:05.748550",
+      "bytes": 92426
+    }
+  ],
+  "flags": [
+    {
+      "id": "flag-ccd8aee0",
+      "kind": "conflict",
+      "severity": "error",
+      "summary": "Subject property address differs across 3 sources",
+      "details": {
+        "field": "subject_property.address",
+        "values": [
+          {
+            "address": "999 test place washington dc 20013",
+            "documents": [
+              {
+                "document_id": "doc-c1ff2dbaee8f",
+                "doc_type": "closing_disclosure"
+              }
+            ]
+          },
+          {
+            "address": "9591 north old mill way citrus springs fl 34433",
+            "documents": [
+              {
+                "document_id": "doc-f5575e513ea6",
+                "doc_type": "title_report"
+              }
+            ]
+          },
+          {
+            "address": "214 overlook drive brentwood tn 37027",
+            "documents": [
+              {
+                "document_id": "doc-90a58db23b52",
+                "doc_type": "underwriting_transmittal_1008"
+              }
+            ]
+          }
+        ]
+      },
+      "documents": [
+        "doc-c1ff2dbaee8f",
+        "doc-f5575e513ea6",
+        "doc-90a58db23b52"
+      ],
+      "field_path": "properties[subject].address",
+      "detected_at": "2026-05-07T05:17:54.421734",
+      "status": "open"
+    },
+    {
+      "id": "flag-a216df26",
+      "kind": "conflict",
+      "severity": "warn",
+      "summary": "Loan ID differs across 2 sources",
+      "details": {
+        "field": "loan.loan_id",
+        "values": [
+          {
+            "loan_id": "TEST250700110",
+            "documents": [
+              {
+                "document_id": "doc-c1ff2dbaee8f",
+                "doc_type": "closing_disclosure"
+              }
+            ]
+          },
+          {
+            "loan_id": "TEST250700114",
+            "documents": [
+              {
+                "document_id": "doc-90a58db23b52",
+                "doc_type": "underwriting_transmittal_1008"
+              }
+            ]
+          }
+        ]
+      },
+      "documents": [
+        "doc-c1ff2dbaee8f",
+        "doc-90a58db23b52"
+      ],
+      "field_path": "loan.loan_id",
+      "detected_at": "2026-05-07T05:17:54.421788",
+      "status": "open"
+    },
+    {
+      "id": "flag-8bad23ed",
+      "kind": "conflict",
+      "severity": "error",
+      "summary": "SSN differs across docs for Mary Homeowner",
+      "details": {
+        "field": "identifiers.ssn",
+        "person": "Mary Homeowner",
+        "values": [
+          {
+            "ssn": "500-22-2000",
+            "documents": [
+              {
+                "document_id": "doc-0537f06ea0e2",
+                "doc_type": "form_1040"
+              }
+            ]
+          },
+          {
+            "ssn": "500-60-2222",
+            "documents": [
+              {
+                "document_id": "doc-90a58db23b52",
+                "doc_type": "underwriting_transmittal_1008"
+              }
+            ]
+          }
+        ]
+      },
+      "documents": [
+        "doc-0537f06ea0e2",
+        "doc-90a58db23b52"
+      ],
+      "field_path": "identifiers.ssn[mary homeowner]",
+      "detected_at": "2026-05-07T05:17:54.421852",
+      "status": "open"
+    },
+    {
+      "id": "flag-f405df0d",
+      "kind": "conflict",
+      "severity": "error",
+      "summary": "Title report's proposed insureds don't match the borrower set on the loan documents — title report may be for a different transaction.",
+      "details": {
+        "title_insureds": [
+          "robert vanassen and andrea vanassen",
+          "luxury mortgage corp., isaoa/atima four landmark square, unit 300, stamford, ct 06901"
+        ],
+        "expected_borrowers": [
+          "john homeowner",
+          "mary homeowner"
+        ]
+      },
+      "documents": [
+        "doc-f5575e513ea6",
+        "doc-c1ff2dbaee8f",
+        "doc-90a58db23b52"
+      ],
+      "field_path": "title_report.proposed_insureds",
+      "detected_at": "2026-05-07T05:17:54.421911",
+      "status": "open"
+    }
+  ],
+  "extraction_meta": {
+    "extracted_at": "2026-05-07T05:17:54.416894",
+    "extractor_version": "0.1.0",
+    "llm_provider": "claude",
+    "llm_model": "claude-haiku-4-5",
+    "corpus_path": "../../documents/Loan Documents/Loan 214",
+    "duration_seconds": 479.0851209590328
+  }
+}
