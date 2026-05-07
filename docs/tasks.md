@@ -31,10 +31,10 @@ Convention:
 
 - [x] `apps/extractor` bootstrap with uv: `pyproject.toml`, src layout, ruff + mypy + pytest configured. → uv 0.11.11 installed via brew; project requires Py ≥ 3.12 to use PEP 695 generics for `Sourced[T]` / `MultiSourced[T]`.
 - [x] `schema.py` — Pydantic models: `Borrower`, `IncomeRecord`, `Account`, `Loan`, `Document`, `Provenance`, `ExtractionFlag`. Export JSON Schema. → 10/10 schema smoke tests pass; per-doc-type `*Fields` discriminated union covers all 12 known types.
-- [ ] `llm/base.py` — `LLMProvider` Protocol with `extract_structured(pdf_path, schema, prompt) -> dict` and `complete(prompt) -> str`.
-- [ ] `llm/claude.py` — Anthropic SDK, sends PDFs natively, uses prompt caching, returns structured JSON.
-- [ ] `llm/openai.py` — stub showing the same interface fits.
-- [ ] `llm/fake.py` — deterministic provider for tests; reads canned responses from a fixtures dir.
+- [x] `llm/base.py` — `LLMProvider` Protocol with `extract_structured` / `extract_with_novelty` / `classify`. → `runtime_checkable` Protocol with PEP 695 generics; `LLMResponse[T]`, `LLMUsage`, `NovelFieldHint`, `ExtractionWithNovelty[T]` shared types.
+- [x] `llm/claude.py` — Anthropic SDK, native PDF input, adaptive thinking, prompt caching on system prompts, `messages.parse()` for typed Pydantic returns. Default model `claude-opus-4-7` per claude-api skill guidance.
+- [x] `llm/openai.py` — stub satisfying the Protocol; `NotImplementedError` with a pointer to the Claude reference impl.
+- [x] `llm/fake.py` — deterministic provider for tests; lookup by `(filename, schema_name)`; logs every call for assertions. → 14 LLM tests pass; protocol-conformance tested for all 3 providers.
 - [ ] `classify.py` — filename heuristic + cheap LLM verification → returns one of {paystub, w2, form_1040, evoe, bank_statement_checking, bank_statement_savings, closing_disclosure, title_report, letter_of_explanation, unknown}.
 - [ ] Per-doc extractors under `extractors/` — one module per known doc type, each owning its prompt + the slice of the schema it produces.
 - [ ] `aggregator.py` — merge per-doc outputs into one `Borrower` with provenance preserved; reconcile income across paystub/W2/1040/EVOE without prematurely collapsing.
