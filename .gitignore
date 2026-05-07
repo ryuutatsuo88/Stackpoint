@@ -28,6 +28,7 @@ coverage/
 playwright-report/
 test-results/
 .turbo/
+tsconfig.tsbuildinfo
 
 # extractor outputs (regenerable)
 apps/web/data/output/
